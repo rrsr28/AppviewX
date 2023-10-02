@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List of Auctions</title>
+</head>
+<body>
+<h2>List of Auctions</h2>
+
+<!-- Iterate over the list of auctions -->
+<div th:each="auction : ${auctions}">
+    <!-- Display auction information -->
+    <h3 th:text="${auction.title}"></h3>
+    <p th:text="${auction.description}"></p>
+    <p th:text="'Current Bid: $' + ${auction.currentBid}"></p>
+
+    <!-- Display remaining time -->
+    <p th:long=" ${auction.remainingTime}"></p>
+
+    <!-- Add to Watchlist Form for each auction -->
+    <form th:if="${auction.getRemainingTime() > 0}" th:action="@{/auctions/{bidderId}/add-to-watchlist/{auctionId}}" method="post">
+        <!-- Hidden input fields for bidderId and auctionId -->
+        <input type="hidden" name="bidderId" th:value="${bidderId}" />
+        <input type="hidden" name="auctionId" th:value="${auction.aid}" />
+
+        <!-- Add to Watchlist Button -->
+        <button type="submit">Add to Watchlist</button>
+    </form>
+
+    <!-- Separate each auction with a horizontal line -->
+    <hr />
+</div>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Create Auction</title>
+  <style>
+        body {
+            font-family: 'Verdana', sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+            color: #333333;
+        }
+
+        .createauction-container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            width: 400px;
+            text-align: left;
+            margin-top: 40px;
+        }
+
+        h2 {
+            color: #3498db;
+            margin-bottom: 20px;
+            margin-top: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555555;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border: 1px solid #cccccc;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #3498db;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        div[th:if="${newAuction != null}"] {
+            margin-top: 20px;
+        }
+
+        p {
+            margin-top: 10px;
+            color: #27ae60;
+        }
+    </style>
+</head>
+<body>
+<div class="createauction-container">
+  <h2>Create Auction</h2>
+  <form th:action="@{/submitauction}" method="post" enctype="multipart/form-data">
+    <label for="auctionTitle">Auction Title:</label>
+    <input type="text" id="auctionTitle" name="auctionTitle" required/>
+
+    <label for="description">Description:</label>
+    <input type="text" id="description" name="description" required/>
+
+    <label for="startingPrice">Starting Price:</label>
+    <input type="text" id="startingPrice" name="startingPrice" required/>
+
+    <label for="startTime">Start Time:</label>
+    <input type="text" id="startTime" name="startTime" required/>
+
+    <label for="itemImages">Item Images:</label>
+    <input type="file" id="itemImages" name="itemImages" multiple accept="image/*" required/>
+
+    <button type="submit">Submit Auction</button>
+  </form>
+
+  <div th:if="${newAuction != null}">
+    <h2>Auction Details</h2>
+    <p th:text="'Auction Title: ' + ${newAuction.auctionTitle}"></p>
+    <p th:text="'Description: ' + ${newAuction.description}"></p>
+    <p th:text="'Starting Price: ' + ${newAuction.startingPrice}"></p>
+    <p th:text="'Start Time: ' + ${newAuction.startTime}"></p>
+    <p th:text="'Item Images: ' + ${newAuction.itemImages}"></p>
+    <div th:each="image : ${#strings.arraySplit(newAuction.itemImages, ',')}">
+      <img th:src="@{'/images/' + ${image}}" alt="Auction Image"/>
+    </div>
+  </div>
+</div>
+</body>
+</html>

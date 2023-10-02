@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Watchlist</title>
+</head>
+<body>
+<h2>Your Watchlist</h2>
+
+<!-- Iterate over the list of auctions in the watchlist -->
+<div th:each="auction : ${watchlist}">
+    <!-- Display auction information -->
+    <h3 th:text="${auction.title}"></h3>
+    <p th:text="${auction.description}"></p>
+    <p th:text="'Current Bid: $' + ${auction.currentBid}"></p>
+
+    <!-- Place Bid Form for each auction -->
+    <form th:action="@{'/bidders/place-bid?bidderId=' + 1 + '&auctionId=3'}" method="post">
+        <!-- Hidden input fields for bidderId and auctionId -->
+        <input type="hidden" name="bidderId" th:value="1" />
+        <input type="hidden" name="auctionId" th:value="3" />
+
+        <!-- Bid Amount Input -->
+        <input type="number" name="bidAmount" placeholder="Enter bid amount" required />
+
+        <!-- Place Bid Button -->
+        <button type="submit">Place Bid</button>
+    </form>
+
+
+    <!-- Separate each auction with a horizontal line -->
+    <hr />
+</div>
+</body>
+</html>

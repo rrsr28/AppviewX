@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+        body {
+            font-family: 'Verdana', sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            color: #333333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #3498db;
+            padding: 10px;
+            text-align: center;
+            color: #ffffff;
+        }
+
+        .dashboard-container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            width: 800px;
+            margin: 20px auto;
+            text-align: center;
+            flex-grow: 1; /* Grow to fill remaining vertical space */
+        }
+
+        h2 {
+            color: #3498db;
+            margin-bottom: 20px;
+            margin-top: 20px;
+        }
+
+        section {
+            margin-top: 30px;
+            text-align: left;
+        }
+
+        p {
+            margin-top: 20px;
+            color: #27ae60;
+        }
+
+        a {
+            text-decoration: none;
+            color: #3498db;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: #ffffff;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        a:hover {
+            background-color: #2980b9;
+        }
+
+        footer {
+            background-color: #333333;
+            padding: 10px;
+            text-align: center;
+            color: #ffffff;
+            width: 100%;
+        }
+
+        .auction-carousel {
+            margin-top: 20px;
+        }
+
+        .carousel-inner img {
+            width: 500px;
+            height: 300px; /* Set the desired fixed height */
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</head>
+<body>
+<header>
+  <h1>Your Auction Platform</h1>
+</header>
+
+<div class="dashboard-container">
+  <h2>Welcome to the Dashboard</h2>
+  <p>This is your personalized dashboard.</p>
+
+  <section>
+    <h3>Available Auctions</h3>
+
+    <div id="auctionCarousel" class="carousel slide auction-carousel" data-ride="carousel">
+      <div class="carousel-inner">
+        <!-- Iterate over available auctions and dynamically generate carousel items -->
+        <div th:each="auction, status : ${availableAuctions}" th:classappend="${status.index == 0} ? 'carousel-item active' : 'carousel-item'">
+          <a th:href="@{/auction/{id}(id=${auction.id})}">
+            <img th:src="@{/images/{filename}(filename=${auction.itemImages.split(',')[0]})}" alt="Auction Image" class="d-block mx-auto">
+            <div class="carousel-caption">
+              <h4 th:text="${auction.auctionTitle}"></h4>
+              <p th:text="${auction.description}"></p>
+            </div>
+          </a>
+        </div>
+      </div>
+      <a class="carousel-control-prev" href="#auctionCarousel" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#auctionCarousel" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
+  </section>
+
+  <section>
+    <h3>Create/Start an Auction</h3>
+    <a th:href="@{/createauction}">Create Auction</a>
+  </section>
+
+  <section>
+    <h3>Auction Rules</h3>
+    <!-- Add your auction rules content here -->
+    <p>Rule 1</p>
+    <p>Rule 2</p>
+    <!-- Add more rules as needed -->
+  </section>
+
+  <a th:href="@{/logout}">Logout</a>
+</div>
+
+<footer>
+  <p>&copy; 2023 Your Auction Platform. All rights reserved.</p>
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

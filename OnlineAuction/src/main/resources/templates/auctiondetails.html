@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auction Details</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+
+        h2 {
+            color: #007bff;
+        }
+
+        .details-container {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .image-container {
+            margin-top: 20px;
+        }
+
+        img {
+            width: 100%; /* Set width to 100% */
+            height: auto;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .enter-dashboard-btn {
+            text-decoration: none;
+            color: #ffffff;
+            font-weight: bold;
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .enter-dashboard-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div class="details-container">
+    <h2>Auction Details</h2>
+
+    <p><strong>Title:</strong> <span th:text="${auction.auctionTitle}"></span></p>
+    <p><strong>Description:</strong> <span th:text="${auction.description}"></span></p>
+    <p><strong>Starting Price:</strong> $<span th:text="${auction.startingPrice}"></span></p>
+    <p><strong>Current Price:</strong> $<span th:text="${auction.currentPrice}"></span></p>
+    <p><strong>Final Price:</strong> $<span th:text="${auction.finalPrice}"></span></p>
+    <p><strong>Start Time:</strong> <span th:text="${auction.startTime}"></span></p>
+    <p><strong>End Time:</strong> <span th:text="${auction.endTime}"></span></p>
+
+    <!-- Display images -->
+    <div class="image-container" th:if="${auction.itemImages}">
+        <p><strong>Item Images:</strong></p>
+        <div th:each="imageURL : ${auction.itemImages.split(',')}">
+            <img th:src="${'/images/' + imageURL}" alt="Item Image">
+        </div>
+    </div>
+</div>
+
+<!-- Enter Auction button -->
+<a class="enter-dashboard-btn" th:href="@{/dashboard}">Enter Auction</a>
+
+</body>
+</html>

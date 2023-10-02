@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <style>
+        body {
+            font-family: 'Verdana', sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+            color: #333333;
+        }
+
+        .signup-container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            width: 400px;
+            text-align: left;
+            margin-top: 40px;
+        }
+
+        h2 {
+            color: #3498db;
+            margin-bottom: 20px;
+            margin-top: 20px;
+        }
+
+        form {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555555;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border: 1px solid #cccccc;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #3498db;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            /* Center the button */
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        div {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        p {
+            margin-top: 20px;
+            color: #27ae60;
+        }
+
+        /* Added background and font styling for the success message */
+        div[th:if="${signupSuccess}"] {
+            background-color: #2ecc71;
+            color: #ffffff;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        div[th:if="${signupError}"] {
+            background-color: #e74c3c;
+            color: #ffffff;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+<div class="signup-container">
+    <h2>Sign Up</h2>
+    <form th:action="@{/signup}" method="post">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required/>
+
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email" required/>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required/>
+
+        <label for="phone">Phone:</label>
+        <input type="text" id="phone" name="phone" required/>
+
+        <label for="address">Address:</label>
+        <input type="text" id="address" name="address" required/>
+
+        <label for="city">City:</label>
+        <input type="text" id="city" name="city" required/>
+
+        <label for="state">State:</label>
+        <input type="text" id="state" name="state" required/>
+
+        <label for="country">Country:</label>
+        <input type="text" id="country" name="country" required/>
+
+        <label for="pincode">Pincode:</label>
+        <input type="text" id="pincode" name="pincode" required/>
+
+        <button type="submit">Sign Up</button>
+    </form>
+
+    <div>
+        <p>Already have an account? <a href="/login">Login</a></p>
+    </div>
+
+    <div th:if="${signupSuccess}">
+        <p>Sign up successful!</p>
+        <script>
+            document.querySelector('form').style.display = 'none';
+        </script>
+    </div>
+
+    <div th:if="${signupError}">
+        <p th:text="${signupError}"></p>
+    </div>
+
+    <div th:if="${user != null}">
+        <p th:text="'Name: ' + ${user.name}"></p>
+        <p th:text="'Email: ' + ${user.email}"></p>
+        <p th:text="'Password: ' + ${user.password}"></p>
+        <p th:text="'Phone: ' + ${user.phone}"></p>
+        <p th:text="'Address: ' + ${user.address}"></p>
+        <p th:text="'City: ' + ${user.city}"></p>
+        <p th:text="'State: ' + ${user.state}"></p>
+        <p th:text="'Country: ' + ${user.country}"></p>
+        <p th:text="'Pincode: ' + ${user.pincode}"></p>
+    </div>
+</div>
+</body>
+</html>

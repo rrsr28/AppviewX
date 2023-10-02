@@ -1,0 +1,55 @@
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+}
+
+
+.container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
+h2 {
+    color: #673ab7;
+    text-align: center;
+}
+
+/* Label styles */
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: #333; /* Dark gray color for labels */
+}
+
+/* Input field styles */
+input[type="text"],
+input[type="email"],
+input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc; /* Light gray border */
+    border-radius: 4px;
+}
+
+/* Button styles */
+button[type="submit"] {
+    background-color: #2196F3; /* Blue color */
+    color: #fff; /* White text color */
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover {
+    background-color: #1976D2; /* Darker blue color on hover */
+}
